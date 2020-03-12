@@ -32,7 +32,8 @@ RUN apt-get update --fix-missing \
 		zlib1g-dev \
 		libtbb-dev \
 		libncurses5-dev \
-		python
+		python \
+	&& apt-get clean
 
 #change working directory
 WORKDIR /usr/local/bin/
