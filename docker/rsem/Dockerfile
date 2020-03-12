@@ -1,9 +1,3 @@
-#RSEM: accurate transcript quantification from RNA-Seq data with or without a reference genome
-#Bo Li and Colin N Dewey
-#University of Wisconsin-Madison
-#Department of Computer Sciences 
-#Madison, WI
-
 #specifying the base image
 FROM ubuntu:19.04
 
