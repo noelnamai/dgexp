@@ -4,8 +4,8 @@ params.help = null
 
 println """\
 
-R N A - S E Q  D I F F E R E N T I A L  E X P R E S I O N 
-=========================================================
+R N A - S E Q  D I F F E R E N T I A L  G E N E  E X P R E S I O N  A N A L Y S I S
+===================================================================================
 
 HISAT2     : 2.1.0
 Samtools   : 1.7
@@ -44,7 +44,7 @@ process convert_gff3_to_gtf {
     file annotated_gff3
       
     output:
-    file("${annotated_gff3.baseName}.gtf") into annotated_gtf_ch
+    file("${annotated_gff3.baseName}.gtf") into annotated_gtf_1_ch; annotated_gtf_2_ch
 
     script:
     """
@@ -62,7 +62,7 @@ process extract_exons_and_ss {
     cpus = 2
 
     input:
-    file(annotated_gtf) from annotated_gtf_ch
+    file(annotated_gtf) from annotated_gtf_1_ch
       
     output:
     set file("${annotated_gtf.baseName}.exons.tsv"), file("${annotated_gtf.baseName}.splicesites.tsv") into extracted_exons_and_ss_ch
@@ -176,7 +176,7 @@ process generate_raw_counts {
     cpus = 2
 
     input:
-    file annotation
+    file(annotated_gtf) from annotated_gtf_2_ch
     set state_replicate, file(bam_file) from aligned_sorted_bam_ch
 
     output:
@@ -184,9 +184,7 @@ process generate_raw_counts {
 
     script:
     """
-    gt gff3_to_gtf -o ${annotation.baseName}.gtf ${annotation}
-
-    htseq-count --format bam ${bam_file} ${annotation.baseName}.gtf > ${bam_file.baseName}.tsv
+    htseq-count --format bam ${bam_file} ${annotated_gtf} > ${bam_file.baseName}.tsv
     """
 }
 
