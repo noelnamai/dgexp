@@ -11,14 +11,16 @@ HISAT2     : 2.1.0
 Samtools   : 1.7
 Started at : $workflow.start
 Results dir: ${params.outdir}
+
 """
 .stripIndent()
 
 /* 
  * parse the input parameters.
  */
-genome     = file(params.genome)
-annotation = file(params.annot)
+genome           = file(params.genome)
+annotated_genome = file(params.annotated_genome)
+annotated_gff3   = file(params.annotated_gff3)
 
 /*
  * read fastq.gz files into a channel
@@ -34,7 +36,7 @@ Channel.fromPath(params.reads)
  */
 process extract_exons_and_ss {
 
-    container "noelnamai/asimov-dgexp:v1.0"
+    container "noelnamai/asimov:1.0"
 
     cpus = 2
 
@@ -58,7 +60,7 @@ process extract_exons_and_ss {
  */
 process build_genome_index {
     
-    container "noelnamai/asimov-dgexp:v1.0"
+    container "noelnamai/asimov:1.0"
 
     cpus = 2
 
@@ -80,23 +82,23 @@ process build_genome_index {
  */
 process map_reads_to_reference {
     
-    tag "$state_rep"
+    tag "$state_replicate"
 
-    container "noelnamai/asimov-dgexp:v1.0"
+    container "noelnamai/asimov:1.0"
 
     cpus = 2
 
     input:
     file genome
     file index from genome_index_ch
-    set state_rep, file(reads) from read_pairs_ch
+    set state_replicate, file(reads) from read_pairs_ch
 
     output:
-    set state_rep, file("${state_rep}.sam") into aligned_sam_ch
+    set state_replicate, file("${state_replicate}.sam") into aligned_sam_ch
 
     script:
     """
-    hisat2 --dta -p ${task.cpus} -x ${genome}.index -U ${reads[0]},${reads[1]} -S ${state_rep}.sam
+    hisat2 --dta -p ${task.cpus} -x ${genome}.index -U ${reads[0]},${reads[1]} -S ${state_replicate}.sam
     """
 }
 
@@ -105,17 +107,17 @@ process map_reads_to_reference {
  */
 process convert_sam_to_bam {
 
-    tag "$state_rep"
+    tag "$state_replicate"
 
-    container "noelnamai/asimov-dgexp:v1.0"
+    container "noelnamai/asimov:1.0"
 
     cpus = 2
 
     input:
-    set state_rep, file(sam_file) from aligned_sam_ch
+    set state_replicate, file(sam_file) from aligned_sam_ch
 
     output:
-    set state_rep, file("${sam_file.baseName}.bam") into aligned_bam_ch
+    set state_replicate, file("${sam_file.baseName}.bam") into aligned_bam_ch
 
     script:
     """
@@ -128,17 +130,17 @@ process convert_sam_to_bam {
  */
 process sort_bam_file {
 
-    tag "$state_rep"
+    tag "$state_replicate"
 
-    container "noelnamai/asimov-dgexp:v1.0"
+    container "noelnamai/asimov:1.0"
 
     cpus = 2
 
     input:
-    set state_rep, file(bam_file) from aligned_bam_ch
+    set state_replicate, file(bam_file) from aligned_bam_ch
 
     output:
-    set state_rep, file("${bam_file.baseName}.sorted.bam") into aligned_sorted_bam_ch
+    set state_replicate, file("${bam_file.baseName}.sorted.bam") into aligned_sorted_bam_ch
 
     script:
     """
@@ -148,15 +150,15 @@ process sort_bam_file {
 
 process generate_raw_counts {
 
-    tag "$state_rep"
+    tag "$state_replicate"
 
-    container "noelnamai/asimov-dgexp:v1.0"
+    container "noelnamai/asimov:1.0"
 
     cpus = 2
 
     input:
     file annotation
-    set state_rep, file(bam_file) from aligned_sorted_bam_ch
+    set state_replicate, file(bam_file) from aligned_sorted_bam_ch
 
     output:
     file("${bam_file.baseName}.tsv") into raw_counts_ch
