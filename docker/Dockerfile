@@ -19,6 +19,7 @@ RUN apt-get -y update --fix-missing \
         wget \
         curl \
         unzip \
+        openjdk-11-jdk \
         samtools \
         genometools \
         python-numpy \
@@ -35,6 +36,14 @@ RUN curl ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/downloads/hisat2-2.1.0-Linux_
 
 #add hisat2 dir to path
 ENV PATH $PATH:/usr/local/bin/hisat2-2.1.0/
+
+#install trimmomatic
+RUN curl http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.39.zip -o trimmomatic-0.39.zip \
+    && unzip trimmomatic-0.39.zip -d /usr/local/bin/ \
+    && rm trimmomatic-0.39.zip
+
+#add trimmomatic dir to path
+ENV PATH $PATH:/usr/local/bin/Trimmomatic-0.39/
 
 #change working directory
 WORKDIR /opt/
