@@ -32,6 +32,27 @@ Channel.fromPath(params.reads)
     .set{read_pairs_ch}
 
 /*
+ * convert the annotated gff3 to gtf
+ */
+process convert_gff3_to_gtf {
+
+    container "noelnamai/asimov:1.0"
+
+    cpus = 2
+
+    input:
+    file annotated_gff3
+      
+    output:
+    file("${annotated_gff3.baseName}.gtf") into annotated_gtf_ch
+
+    script:
+    """
+    gt gff3_to_gtf -o ${annotated_gff3.baseName}.gtf ${annotated_gff3}
+    """
+}
+
+/*
  * extract exons and splice junctions from the gff3 file
  */
 process extract_exons_and_ss {
@@ -41,17 +62,15 @@ process extract_exons_and_ss {
     cpus = 2
 
     input:
-    file annotation
+    file(annotated_gtf) from annotated_gtf_ch
       
     output:
-    set file("${annotation.baseName}.exons.tsv"), file("${annotation.baseName}.splicesites.tsv") into extracted_exons_and_ss_ch
+    set file("${annotated_gtf.baseName}.exons.tsv"), file("${annotated_gtf.baseName}.splicesites.tsv") into extracted_exons_and_ss_ch
 
     script:
-    """
-    gt gff3_to_gtf -o ${annotation.baseName}.gtf ${annotation}
-    
-    hisat2_extract_exons.py ${annotation.baseName}.gtf > ${annotation.baseName}.exons.tsv
-    hisat2_extract_splice_sites.py ${annotation.baseName}.gtf > ${annotation.baseName}.splicesites.tsv
+    """    
+    hisat2_extract_exons.py ${annotated_gtf.baseName}.gtf > ${annotated_gtf.baseName}.exons.tsv
+    hisat2_extract_splice_sites.py ${annotated_gtf.baseName}.gtf > ${annotated_gtf.baseName}.splicesites.tsv
     """
 }
 
