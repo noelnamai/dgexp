@@ -4,13 +4,14 @@ params.help = null
 
 println """\
 
-R N A - S E Q  D I F F E R E N T I A L  G E N E  E X P R E S I O N  A N A L Y S I S
-===================================================================================
+D I F F E R E N T I A L  G E N E  E X P R E S I O N  A N A L Y S I S
+====================================================================
 
-HISAT2     : 2.1.0
-Samtools   : 1.7
-Started at : $workflow.start
-Results dir: ${params.outdir}
+Samtools         : 1.7
+HISAT2           : 2.1.0
+GenomeTools      : 0.4.1
+Start time       : $workflow.start
+Results directory: ${params.outdir}
 
 """
 .stripIndent()
@@ -34,21 +35,21 @@ Channel.fromPath(params.reads)
 /*
  * convert the annotated gff3 to gtf
  */
-process convert_gff3_to_gtf {
-
-    container "noelnamai/asimov:1.0"
+ process convert_gff3_to_gtf {
 
     cpus = 2
+    container "noelnamai/asimov:1.0"
 
     input:
     file annotated_gff3
       
     output:
-    file("${annotated_gff3.baseName}.gtf") into annotated_gtf_1_ch; annotated_gtf_2_ch
+    file("${annotated_gff3.baseName}.gtf") into annotated_gtf_1_ch
+    file("${annotated_gff3.baseName}.gtf") into annotated_gtf_2_ch
 
     script:
     """
-    gt gff3_to_gtf -o ${annotated_gff3.baseName}.gtf ${annotated_gff3}
+    gffread -E -T ${annotated_gff3} -o ${annotated_gff3.baseName}.gtf
     """
 }
 
@@ -57,9 +58,8 @@ process convert_gff3_to_gtf {
  */
 process extract_exons_and_ss {
 
-    container "noelnamai/asimov:1.0"
-
     cpus = 2
+    container "noelnamai/asimov:1.0"
 
     input:
     file(annotated_gtf) from annotated_gtf_1_ch
@@ -79,9 +79,8 @@ process extract_exons_and_ss {
  */
 process build_genome_index {
     
-    container "noelnamai/asimov:1.0"
-
     cpus = 2
+    container "noelnamai/asimov:1.0"
 
     input:
     file genome
@@ -102,10 +101,8 @@ process build_genome_index {
 process map_reads_to_reference {
     
     tag "$state_replicate"
-
-    container "noelnamai/asimov:1.0"
-
     cpus = 2
+    container "noelnamai/asimov:1.0"
 
     input:
     file genome
@@ -117,7 +114,7 @@ process map_reads_to_reference {
 
     script:
     """
-    hisat2 --dta -p ${task.cpus} -x ${genome}.index -U ${reads[0]},${reads[1]} -S ${state_replicate}.sam
+    hisat2 --dta --phred33 -p ${task.cpus} -x ${genome}.index -U ${reads[0]},${reads[1]} -S ${state_replicate}.sam
     """
 }
 
@@ -127,10 +124,8 @@ process map_reads_to_reference {
 process convert_sam_to_bam {
 
     tag "$state_replicate"
-
-    container "noelnamai/asimov:1.0"
-
     cpus = 2
+    container "noelnamai/asimov:1.0"
 
     input:
     set state_replicate, file(sam_file) from aligned_sam_ch
@@ -150,10 +145,8 @@ process convert_sam_to_bam {
 process sort_bam_file {
 
     tag "$state_replicate"
-
-    container "noelnamai/asimov:1.0"
-
     cpus = 2
+    container "noelnamai/asimov:1.0"
 
     input:
     set state_replicate, file(bam_file) from aligned_bam_ch
@@ -170,21 +163,19 @@ process sort_bam_file {
 process generate_raw_counts {
 
     tag "$state_replicate"
-
-    container "noelnamai/asimov:1.0"
-
     cpus = 2
+    container "noelnamai/asimov:1.0"
 
     input:
     file(annotated_gtf) from annotated_gtf_2_ch
     set state_replicate, file(bam_file) from aligned_sorted_bam_ch
 
     output:
-    file("${bam_file.baseName}.tsv") into raw_counts_ch
+    file("${bam_file.simpleName}.tsv") into raw_counts_ch
 
     script:
     """
-    htseq-count --format bam ${bam_file} ${annotated_gtf} > ${bam_file.baseName}.tsv
+    htseq-count --order name --format bam ${bam_file} ${annotated_gtf} > ${bam_file.simpleName}.tsv
     """
 }
 

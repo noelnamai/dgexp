@@ -16,17 +16,20 @@ RUN apt-get -y update --fix-missing \
     && apt-get install -y --allow-unauthenticated \
         software-properties-common \
         build-essential \
+        python3-dev \
         wget \
+        git \
         curl \
+        make \
         unzip \
         openjdk-11-jdk \
         samtools \
         genometools \
-        python-numpy \
-        python-matplotlib \
-        python-pysam \
-        python-htseq \
-        python-pip \
+        python3-numpy \
+        python3-matplotlib \
+        python3-pysam \
+        python3-htseq \
+        python3-pip \
     && apt-get clean
 
 #install hisat2
@@ -44,6 +47,15 @@ RUN curl http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmoma
 
 #add trimmomatic dir to path
 ENV PATH $PATH:/usr/local/bin/Trimmomatic-0.39/
+
+#install gffread
+RUN git clone https://github.com/gpertea/gclib /usr/local/bin/gclib \
+    && git clone https://github.com/gpertea/gffread /usr/local/bin/gffread \
+    && cd /usr/local/bin/gffread/ \
+    && make release
+
+#add trimmomatic dir to path
+ENV PATH $PATH:/usr/local/bin/gffread/
 
 #change working directory
 WORKDIR /opt/
