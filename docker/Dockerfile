@@ -17,6 +17,7 @@ RUN apt-get -y update --fix-missing \
         software-properties-common \
         build-essential \
         python3-dev \
+        libz-dev \
         wget \
         git \
         curl \
@@ -56,6 +57,17 @@ RUN git clone https://github.com/gpertea/gclib /usr/local/bin/gclib \
 
 #add trimmomatic dir to path
 ENV PATH $PATH:/usr/local/bin/gffread/
+
+
+#install STAR 2.7.3a
+RUN wget https://github.com/alexdobin/STAR/archive/2.7.3a.tar.gz \
+	&& tar -xzf 2.7.3a.tar.gz -C /usr/local/bin/ \
+	&& rm 2.7.3a.tar.gz \
+	&& cd /usr/local/bin/STAR-2.7.3a/source \
+	&& make STAR
+
+#add the bam-matcher dir to path
+ENV PATH="/usr/local/bin/STAR-2.7.3a/bin/Linux_x86_64:$PATH"
 
 #change working directory
 WORKDIR /opt/

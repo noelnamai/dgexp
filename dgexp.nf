@@ -7,28 +7,25 @@ println """\
 D I F F E R E N T I A L  G E N E  E X P R E S I O N  A N A L Y S I S
 ====================================================================
 
-Samtools         : 1.7
-HISAT2           : 2.1.0
-GenomeTools      : 0.4.1
-Start time       : $workflow.start
-Results directory: ${params.outdir}
-
+Samtools    : 1.7
+HISAT2      : 2.1.0
+GenomeTools : 0.4.1
+Start time  : $workflow.start
 """
 .stripIndent()
 
 /* 
  * parse the input parameters.
  */
-genome           = file(params.genome)
-annotated_genome = file(params.annotated_genome)
-annotated_gff3   = file(params.annotated_gff3)
+gff3   = file(params.gff3)
+genome = file(params.genome)
 
 /*
  * read fastq.gz files into a channel
  */
 Channel.fromPath(params.reads)
     .ifEmpty{error "Cannot find any reads matching: ${params.reads}"}
-    .map{file -> [file.name.substring(0, 17), file]}
+    .map{file -> [file.name.substring(6, 17), file]}
     .groupTuple(by: 0, sort: true)
     .set{read_pairs_ch}
 
@@ -41,15 +38,15 @@ Channel.fromPath(params.reads)
     container "noelnamai/asimov:1.0"
 
     input:
-    file annotated_gff3
+    file gff3
       
     output:
-    file("${annotated_gff3.baseName}.gtf") into annotated_gtf_1_ch
-    file("${annotated_gff3.baseName}.gtf") into annotated_gtf_2_ch
+    file("${gff3.baseName}.gtf") into gtf_1_ch
+    file("${gff3.baseName}.gtf") into gtf_2_ch
 
     script:
     """
-    gffread -E -T ${annotated_gff3} -o ${annotated_gff3.baseName}.gtf
+    gffread -T ${gff3} -o ${gff3.baseName}.gtf
     """
 }
 
@@ -62,15 +59,15 @@ process extract_exons_and_ss {
     container "noelnamai/asimov:1.0"
 
     input:
-    file(annotated_gtf) from annotated_gtf_1_ch
+    file(gtf) from gtf_1_ch
       
     output:
-    set file("${annotated_gtf.baseName}.exons.tsv"), file("${annotated_gtf.baseName}.splicesites.tsv") into extracted_exons_and_ss_ch
+    set file("${gtf.baseName}.exons.tsv"), file("${gtf.baseName}.splicesites.tsv") into extracted_exons_and_ss_ch
 
     script:
     """    
-    hisat2_extract_exons.py ${annotated_gtf.baseName}.gtf > ${annotated_gtf.baseName}.exons.tsv
-    hisat2_extract_splice_sites.py ${annotated_gtf.baseName}.gtf > ${annotated_gtf.baseName}.splicesites.tsv
+    hisat2_extract_exons.py ${gtf.baseName}.gtf > ${gtf.baseName}.exons.tsv
+    hisat2_extract_splice_sites.py ${gtf.baseName}.gtf > ${gtf.baseName}.splicesites.tsv
     """
 }
 
@@ -100,8 +97,8 @@ process build_genome_index {
  */
 process map_reads_to_reference {
     
-    tag "$state_replicate"
     cpus = 2
+    tag "$state_replicate"
     container "noelnamai/asimov:1.0"
 
     input:
@@ -123,8 +120,8 @@ process map_reads_to_reference {
  */
 process convert_sam_to_bam {
 
-    tag "$state_replicate"
     cpus = 2
+    tag "$state_replicate"
     container "noelnamai/asimov:1.0"
 
     input:
@@ -144,8 +141,8 @@ process convert_sam_to_bam {
  */
 process sort_bam_file {
 
-    tag "$state_replicate"
     cpus = 2
+    tag "$state_replicate"
     container "noelnamai/asimov:1.0"
 
     input:
@@ -162,20 +159,20 @@ process sort_bam_file {
 
 process generate_raw_counts {
 
-    tag "$state_replicate"
     cpus = 2
+    tag "$state_replicate"
     container "noelnamai/asimov:1.0"
 
     input:
-    file(annotated_gtf) from annotated_gtf_2_ch
+    file(gtf) from gtf_2_ch
     set state_replicate, file(bam_file) from aligned_sorted_bam_ch
 
     output:
-    file("${bam_file.simpleName}.tsv") into raw_counts_ch
+    file("${state_replicate}.tsv") into raw_counts_ch
 
     script:
     """
-    htseq-count --order name --format bam ${bam_file} ${annotated_gtf} > ${bam_file.simpleName}.tsv
+    htseq-count --type exon --idattr gene_id --order name --format bam ${bam_file} ${gtf} > ${state_replicate}.tsv
     """
 }
 
