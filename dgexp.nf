@@ -7,10 +7,12 @@ println """\
 D I F F E R E N T I A L  G E N E  E X P R E S I O N  A N A L Y S I S
 ====================================================================
 
-Samtools    : 1.7
-HISAT2      : 2.1.0
-GenomeTools : 0.4.1
-Start time  : $workflow.start
+Samtools   : 1.9
+Gffread    : 0.11.8
+HISAT2     : 2.1.0
+HTSeq      : 0.11.1
+DESeq2     : 1.26.0
+Start time : $workflow.start
 """
 .stripIndent()
 
@@ -163,6 +165,8 @@ process generate_raw_counts {
     tag "$state_replicate"
     container "noelnamai/asimov:1.0"
 
+    publishDir "${params.outdir}", mode: "copy", overwrite: true
+
     input:
     file(gtf) from gtf_2_ch
     set state_replicate, file(bam_file) from aligned_sorted_bam_ch
@@ -176,6 +180,23 @@ process generate_raw_counts {
     """
 }
 
-raw_counts_ch
-    .collect()
-    .println()
+process combine_matrix {
+
+    cpus = 2
+    container "noelnamai/asimov:1.0"
+
+    publishDir "${params.outdir}", mode: "copy", overwrite: true
+
+    input:
+    file(count_matrices) from raw_counts_ch.collect()
+
+    output:
+    file("count_matrix_final.tsv") into combined_matrix_ch
+
+    script:
+    """
+    join state1_rep1.tsv state1_rep2.tsv | join - state2_rep1.tsv | join - state2_rep2.tsv > count_matrix.tsv
+    echo "gene_id state1_rep1 state1_rep2 state2_rep1 state2_rep2" > header.txt
+    cat header.txt count_matrix.tsv > count_matrix_final.tsv
+    """
+}

@@ -18,20 +18,31 @@ RUN apt-get -y update --fix-missing \
         build-essential \
         python3-dev \
         libz-dev \
-        wget \
-        git \
-        curl \
-        make \
-        unzip \
+        libxml2-dev \
+        libcurl4-openssl-dev \
+        gnupg2 \
+        r-base \
+        r-base-dev \
+        r-cran-rcpp \
         openjdk-11-jdk \
-        samtools \
-        genometools \
         python3-numpy \
         python3-matplotlib \
         python3-pysam \
         python3-htseq \
         python3-pip \
+        samtools \
+        littler \
+        git \
+        curl \
+        make \
+        unzip \
+    && ln -s /usr/share/doc/littler/examples/install.r /usr/local/bin/install.r \
     && apt-get clean
+
+RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/" | tee -a /etc/apt/sources.list \
+    && gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9 \
+    && gpg -a --export E084DAB9 | apt-key add - \
+    && apt-get -y update --fix-missing
 
 #install hisat2
 RUN curl ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/downloads/hisat2-2.1.0-Linux_x86_64.zip -o hisat2-2.1.0.zip \
@@ -58,16 +69,27 @@ RUN git clone https://github.com/gpertea/gclib /usr/local/bin/gclib \
 #add trimmomatic dir to path
 ENV PATH $PATH:/usr/local/bin/gffread/
 
+#install required R packages from CRAN
+RUN install.r \
+        latticeExtra \
+        devtools \
+        RCurl \
+        openssl \
+        Hmisc \
+        BiocManager \
+        tidyr \
+        readr \
+        stringr \
+        ggplot2 \
+    && rm -rf /var/lib/apt/lists/*
 
-#install STAR 2.7.3a
-RUN wget https://github.com/alexdobin/STAR/archive/2.7.3a.tar.gz \
-	&& tar -xzf 2.7.3a.tar.gz -C /usr/local/bin/ \
-	&& rm 2.7.3a.tar.gz \
-	&& cd /usr/local/bin/STAR-2.7.3a/source \
-	&& make STAR
-
-#add the bam-matcher dir to path
-ENV PATH="/usr/local/bin/STAR-2.7.3a/bin/Linux_x86_64:$PATH"
+#install other required R packages from github
+RUN Rscript -e "\
+BiocManager::install('annotate'); \
+BiocManager::install('GenomicRanges'); \
+BiocManager::install('SummarizedExperiment'); \
+BiocManager::install('GenomeInfoDb'); \
+BiocManager::install('DESeq2')"
 
 #change working directory
 WORKDIR /opt/
