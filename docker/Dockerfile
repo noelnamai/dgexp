@@ -76,11 +76,11 @@ RUN git clone https://github.com/gpertea/gclib /usr/local/bin/gclib \
 ENV PATH $PATH:/usr/local/bin/gffread/
 
 #install required python packages
-RUN python3 -m pip install \
-    numpy \
-    matplotlib \
-    pysam \
-    HTSeq
+RUN pip3 install \
+        numpy \
+        matplotlib \
+        pysam \
+        HTSeq
 
 #install required R packages from CRAN
 RUN install.r \

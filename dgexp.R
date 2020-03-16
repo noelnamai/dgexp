@@ -1,5 +1,4 @@
 
-
 setwd("C:/Users/noel.namai/personal/asimov/results/")
 
 library("DESeq2")
@@ -22,11 +21,15 @@ dexp.genes = as.data.frame(res[!is.na(res$padj) &
 write.table(
   x = as.data.frame(res),
   file = "genes-results.tsv",
+  na = "0",
   sep = "\t",
-  na = "0"
+  quote = FALSE
 )
 
-write.table(x = dexp.genes,
-            file = "dexp-genes.tsv",
-            sep = "\t",
-            na = "0")
+write.table(
+  x = dexp.genes,
+  file = "dexp-genes.tsv",
+  na = "0",
+  sep = "\t",
+  quote = FALSE
+)
