@@ -1,5 +1,5 @@
 #specifying the base image
-FROM ubuntu:19.04
+FROM ubuntu:16.04
 
 #add metadata to image e.g. name and email of the person who maintains the file
 LABEL Maintainer="Noel Namai"
@@ -8,27 +8,37 @@ LABEL Email="noelnamai@yahoo.com"
 #set system arguments and enviromental variables
 ARG DEBIAN_FRONTEND=noninteractive
 
-#http://bugs.python.org/issue19846: setting "LANG=C" on a Linux system *fundamentally breaks Python 3*
+#setting "LANG=C" on linux fundamentally breaks python 3
+#http://bugs.python.org/issue19846
 ENV LANG C.UTF-8
 
+RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/" | tee -a /etc/apt/sources.list \
+    && gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9 \
+    && gpg -a --export E084DAB9 | apt-key add -
+
 #update ubuntu and install other necessary software
-RUN apt-get -y update --fix-missing \
+RUN apt-get -y update \
+    && apt-get install -y software-properties-common \
+    && apt-get -y update \
+    && add-apt-repository ppa:openjdk-r/ppa \
+    && apt-get -y update --fix-missing \
     && apt-get install -y --allow-unauthenticated \
-        software-properties-common \
         build-essential \
-        python3-dev \
+        libssh2-1-dev \
+		libxml2-dev \
+		libcairo2-dev \
+		libxt-dev \
+		libssl-dev \
+		libv8-dev \
+        libmagick++-dev \
         libz-dev \
-        libxml2-dev \
         libcurl4-openssl-dev \
-        gnupg2 \
         r-base \
         r-base-dev \
         r-cran-rcpp \
         openjdk-11-jdk \
-        python3-numpy \
-        python3-matplotlib \
-        python3-pysam \
-        python3-htseq \
+        python3 \
+        python3-dev \
         python3-pip \
         samtools \
         littler \
@@ -37,12 +47,8 @@ RUN apt-get -y update --fix-missing \
         make \
         unzip \
     && ln -s /usr/share/doc/littler/examples/install.r /usr/local/bin/install.r \
+    && apt-get -y update \
     && apt-get clean
-
-RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/" | tee -a /etc/apt/sources.list \
-    && gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9 \
-    && gpg -a --export E084DAB9 | apt-key add - \
-    && apt-get -y update --fix-missing
 
 #install hisat2
 RUN curl ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/downloads/hisat2-2.1.0-Linux_x86_64.zip -o hisat2-2.1.0.zip \
@@ -69,18 +75,26 @@ RUN git clone https://github.com/gpertea/gclib /usr/local/bin/gclib \
 #add trimmomatic dir to path
 ENV PATH $PATH:/usr/local/bin/gffread/
 
+#install required python packages
+RUN python3 -m pip install \
+    numpy \
+    matplotlib \
+    pysam \
+    HTSeq
+
 #install required R packages from CRAN
 RUN install.r \
-        latticeExtra \
         devtools \
+        docopt \
+        lattice \
         RCurl \
         openssl \
         Hmisc \
-        BiocManager \
         tidyr \
         readr \
         stringr \
         ggplot2 \
+        BiocManager \
     && rm -rf /var/lib/apt/lists/*
 
 #install other required R packages from github
