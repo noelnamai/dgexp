@@ -15,4 +15,8 @@ ddshtseq = DESeqDataSetFromHTSeqCount(sampleTable = sample.table,
 dds = DESeq(ddshtseq)
 res = results(dds, lfcThreshold = log2(1.5), alpha = 0.1)
 dexp.genes = as.data.frame(res[!is.na(res$padj) & res$padj < 0.1 & res$log2FoldChange > log2(1.5),])
-dexp.genes
+
+write.table(x = as.data.frame(res)
+            
+write.table(x = dexp.genes, 
+            file = "./results/dexp-genes.tsv", sep = "\t")
