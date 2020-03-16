@@ -23,7 +23,8 @@ gff3   = file(params.gff3)
 genome = file(params.genome)
 
 /*
- * read fastq.gz files into a channel
+ * read all the fastq.gz files pairs into a channel of the form:
+ * [[state1_rep1, [state1_rep1.fastq.gz, state1_rep1_2.fastq.gz]], [state1_rep2, [state1_rep2.fastq.gz, state1_rep2_2.fastq.gz]], ...]
  */
 Channel.fromPath(params.reads)
     .ifEmpty{error "Cannot find any reads matching: ${params.reads}"}
@@ -32,7 +33,7 @@ Channel.fromPath(params.reads)
     .set{read_pairs_ch}
 
 /*
- * convert the annotated gff3 to gtf
+ * convert the annotated gff3 to gtf using gffread
  */
  process convert_gff3_to_gtf {
 
@@ -139,7 +140,7 @@ process convert_sam_to_bam {
 }
 
 /*
- * sort bam files using samtools
+ * sort bam files by name using samtools
  */
 process sort_bam_file {
 
@@ -159,6 +160,9 @@ process sort_bam_file {
     """
 }
 
+/*
+ * count how many reads map to each gene using htseq-count
+ */
 process generate_raw_counts {
 
     cpus = 2
