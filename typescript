@@ -1,0 +1,163 @@
+Script started on Tue 17 Mar 2020 08:39:53 AM DST
+[sudo] password for namai: 
+]0;namai@LT-NNAMAIX1: /c/Users/noel.namai/personal/asimov[01;32mnamai@LT-NNAMAIX1[00m:[01;34m/c/Users/noel.namai/personal/asimov[00m$ apt install r-base-core[8PRscript dgexp.Rexit[KRscript dgexp.Rscp -i /home/namai/noel-namai.pem -r ubuntu@34.205.2.109:/home/ubuntu/nnamai/data .nextflow.config dgexp.nf ubuntu@34.205.2.109:/home/ubuntu/nnamai/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cdocker system prune -a[Kscp -i /home/namai/noel-namai.pem nextflow.config dgexp.nf ubuntu@34.205.2.109:/home/ubuntu/nnamai/[16P-r ubuntu@34.205.2.109:/home/ubuntu/nnamai/data .docker/ ubuntu@34.205.2.109:/home/ubuntu/nnamai/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[32Psh -i /home/namai/noel-namai.pem ubuntu@34.205.2.109
+Welcome to Ubuntu 18.04.3 LTS (GNU/Linux 4.15.0-1060-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Tue Mar 17 12:40:12 UTC 2020
+
+  System load:  0.0                Processes:              151
+  Usage of /:   5.6% of 484.64GB   Users logged in:        1
+  Memory usage: 4%                 IP address for ens3:    10.50.1.57
+  Swap usage:   0%                 IP address for docker0: 172.17.0.1
+
+ * Latest Kubernetes 1.18 beta is now available for your laptop, NUC, cloud
+   instance or Raspberry Pi, with automatic updates to the final GA release.
+
+     sudo snap install microk8s --channel=1.18/beta --classic
+
+ * Multipass 1.1 adds proxy support for developers behind enterprise
+   firewalls. Rapid prototyping for cloud operations just got easier.
+
+     https://multipass.run/
+
+ * Canonical Livepatch is available for installation.
+   - Reduce system reboots and improve kernel security. Activate at:
+     https://ubuntu.com/livepatch
+
+41 packages can be updated.
+0 updates are security updates.
+
+
+Last login: Tue Mar 17 08:36:49 2020 from 38.242.14.15
+]0;ubuntu@ip-10-50-1-57: ~[01;32mubuntu@ip-10-50-1-57[00m:[01;34m~[00m$ cd nnamai/
+]0;ubuntu@ip-10-50-1-57: ~/nnamai[01;32mubuntu@ip-10-50-1-57[00m:[01;34m~/nnamai[00m$ Rscript
+
+Command 'Rscript' not found, but can be installed with:
+
+sudo apt install r-base-core
+
+]0;ubuntu@ip-10-50-1-57: ~/nnamai[01;32mubuntu@ip-10-50-1-57[00m:[01;34m~/nnamai[00m$ Rscriptcd nnamai/[6Pexitdocker build -t noelnamai/asimov:1.0 .[2Prun -ti noelnamai/asimov:1.0 
+]0;root@4aae237f4e4c: /optroot@4aae237f4e4c:/opt# [K]0;root@4aae237f4e4c: /optroot@4aae237f4e4c:/opt# Rscript
+Usage: /path/to/Rscript [--options] [-e expr [-e expr2 ...] | file] [args]
+
+--options accepted are
+  --help              Print usage and exit
+  --version           Print version and exit
+  --verbose           Print information on progress
+  --default-packages=list
+                      Where 'list' is a comma-separated set
+                        of package names, or 'NULL'
+or options to R, in addition to --slave --no-restore, such as
+  --save              Do save workspace at the end of the session
+  --no-environ        Don't read the site and user environment files
+  --no-site-file      Don't read the site-wide Rprofile
+  --no-init-file      Don't read the user R profile
+  --restore           Do restore previously saved objects at startup
+  --vanilla           Combine --no-save, --no-restore, --no-site-file
+                        --no-init-file and --no-environ
+
+'file' may contain spaces but not shell metacharacters
+Expressions (one or more '-e <expr>') may be used *instead* of 'file'
+See also  ?Rscript  from within R
+]0;root@4aae237f4e4c: /optroot@4aae237f4e4c:/opt# RscriptwRscripthRscriptiRscriptcRscripthRscript Rscript
+/usr/bin/Rscript
+]0;root@4aae237f4e4c: /optroot@4aae237f4e4c:/opt# exit
+exit
+]0;ubuntu@ip-10-50-1-57: ~/nnamai[01;32mubuntu@ip-10-50-1-57[00m:[01;34m~/nnamai[00m$ docker run -ti noelnamai/asimov:1.0 [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CRscript[Kcd nnamai/[6Pexitdocker build -t noelnamai/asimov:1.0 .[2Prun -ti noelnamai/asimov:1.0 build -t noelnamai/asimov:1.0 .[6Ppush noelnamai/asimov:1.0build -t noelnamai/asimov:1.0 .[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[21Pcd nnamai/docker/docker build -t noelnamai/asimov:1.0 .[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[21Pcd nnamai/docker/[7Pdocker/less results/count_matrix_final.tsv [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccd docker/[Kless results/count_matrix_final.tsv [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ctree[Kls -larm -rf .nextflow* work .nextflow* .command.* nohup.out  results/[K[K[K[K[K[K[K[K[K[K
+]0;ubuntu@ip-10-50-1-57: ~/nnamai[01;32mubuntu@ip-10-50-1-57[00m:[01;34m~/nnamai[00m$ tree results/
+[01;34mresults/[00m
+├── count_matrix_final.tsv
+├── state1_rep1.tsv
+├── state1_rep2.tsv
+├── state2_rep1.tsv
+└── state2_rep2.tsv
+
+0 directories, 5 files
+]0;ubuntu@ip-10-50-1-57: ~/nnamai[01;32mubuntu@ip-10-50-1-57[00m:[01;34m~/nnamai[00m$ tree results/rm -rf .nextflow* work .nextflow* .command.* nohup.out results/
+]0;ubuntu@ip-10-50-1-57: ~/nnamai[01;32mubuntu@ip-10-50-1-57[00m:[01;34m~/nnamai[00m$ rm -rf .nextflow* work .nextflow* .command.* nohup.out results/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ctree results/[Krm -rf .nextflow* work .nextflow* .command.* nohup.out[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[18Pdocker run -ti noelnamai/asimov:1.0 [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CRscript[Kcd nnamai/[6Pexitdocker build -t noelnamai/asimov:1.0 .[2Prun -ti noelnamai/asimov:1.0 build -t noelnamai/asimov:1.0 .[6Ppush noelnamai/asimov:1.0build -t noelnamai/asimov:1.0 .[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[21Pcd nnamai/docker/docker build -t noelnamai/asimov:1.0 .[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[21Pcd nnamai/docker/[7Pdocker/less results/count_matrix_final.tsv [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ctree[Kls -larm -rf .nextflow* work .nextflow* .command.* nohup.out [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ctree[K[Kcd nnamai/docker system prune -abuild -t noelnamai/asimov:1.0 .[2Prun -ti noelnamai/asimov:1.0 build -t noelnamai/asimov:1.0 .[2Prun -ti noelnamai/asimov:1.0 build -t noelnamai/asimov:1.0 .[16Psystem prune -abuild -t noelnamai/asimov:1.0 .[1Prun -ti[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[20Pcd nnamai/docker/less results/count_matrix_final.tsv [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[23Ptree results/nextflow run dgexp.nf -resume
+N E X T F L O W  ~  version 20.01.0
+Launching `dgexp.nf` [lonely_agnesi] - revision: d0b3d303bc
+WARN: It appears you have never run this project before -- Option `-resume` is ignored
+
+D I F F E R E N T I A L  G E N E  E X P R E S I O N  A N A L Y S I S
+====================================================================
+
+Samtools   : 1.9
+Gffread    : 0.11.8
+HISAT2     : 2.1.0
+HTSeq      : 0.11.1
+DESeq2     : 1.26.0
+Start time : 2020-03-17T13:00:22.508263Z
+
+[-        ] process > convert_gff3_to_gtf  -[K
+[-        ] process > extract_exons_and_ss -[K
+[-        ] process > build_genome_index   -[K
+[4A
+executor >  local (1)[K
+[ee/c2d5e6] process > convert_gff3_to_gtf    [  0%] 0 of 1[K
+[-        ] process > extract_exons_and_ss   -[K
+[-        ] process > build_genome_index     -[K
+[-        ] process > map_reads_to_reference -[K
+[-        ] process > convert_sam_to_bam     -[K
+[-        ] process > sort_bam_file          -[K
+[-        ] process > generate_raw_counts    -[K
+[-        ] process > combine_matrix         -[K
+[10A
+executor >  local (2)[K
+[ee/c2d5e6] process > convert_gff3_to_gtf    [100%] 1 of 1 ✔[K
+[93/c3d45d] process > extract_exons_and_ss   [  0%] 0 of 1[K
+[-        ] process > build_genome_index     -[K
+[-        ] process > map_reads_to_reference -[K
+[-        ] process > convert_sam_to_bam     -[K
+[-        ] process > sort_bam_file          -[K
+[-        ] process > generate_raw_counts    -[K
+[-        ] process > combine_matrix         -[K
+[10A
+executor >  local (2)[K
+[ee/c2d5e6] process > convert_gff3_to_gtf    [100%] 1 of 1 ✔[K
+[93/c3d45d] process > extract_exons_and_ss   [  0%] 0 of 1[K
+[-        ] process > build_genome_index     -[K
+[-        ] process > map_reads_to_reference -[K
+[-        ] process > convert_sam_to_bam     -[K
+[-        ] process > sort_bam_file          -[K
+[-        ] process > generate_raw_counts    -[K
+[-        ] process > combine_matrix         -[K
+[10A
+executor >  local (2)[K
+[ee/c2d5e6] process > convert_gff3_to_gtf    [100%] 1 of 1 ✔[K
+[93/c3d45d] process > extract_exons_and_ss   [100%] 1 of 1 ✔[K
+[-        ] process > build_genome_index     -[K
+[-        ] process > map_reads_to_reference -[K
+[-        ] process > convert_sam_to_bam     -[K
+[-        ] process > sort_bam_file          -[K
+[-        ] process > generate_raw_counts    -[K
+[-        ] process > combine_matrix         -[K
+[10A
+executor >  local (3)[K
+[ee/c2d5e6] process > convert_gff3_to_gtf    [100%] 1 of 1 ✔[K
+[93/c3d45d] process > extract_exons_and_ss   [100%] 1 of 1 ✔[K
+[69/ab4332] process > build_genome_index     [  0%] 0 of 1[K
+[-        ] process > map_reads_to_reference -[K
+[-        ] process > convert_sam_to_bam     -[K
+[-        ] process > sort_bam_file          -[K
+[-        ] process > generate_raw_counts    -[K
+[-        ] process > combine_matrix         -[K
+[10A
+executor >  local (7)[K
+[ee/c2d5e6] process > convert_gff3_to_gtf    [100%] 1 of 1 ✔[K
+[93/c3d45d] process > extract_exons_and_ss   [100%] 1 of 1 ✔[K
+[69/ab4332] process > build_genome_index     [100%] 1 of 1 ✔[K
+[31/9caf51] process > map_reads_to_reference [  0%] 0 of 4[K
+[-        ] process > convert_sam_to_bam     -[K
+[-        ] process > sort_bam_file          -[K
+[-        ] process > generate_raw_counts    -[K
+[-        ] process > combine_matrix         -[K
+[10A
+executor >  local (7)[K
+[ee/c2d5e6] process > convert_gff3_to_gtf    [100%] 1 of 1 ✔[K
+[93/c3d45d] process > extract_exons_and_ss   [100%] 1 of 1 ✔[K
+[69/ab4332] process 

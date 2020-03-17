@@ -87,11 +87,11 @@ process build_genome_index {
     set file(extracted_exons), file(extracted_ss) from extracted_exons_and_ss_ch
       
     output:
-    file("${genome}.index.*") into genome_index_ch
+    file("${genome.simpleName}.index.*") into genome_index_ch
 
     script:
     """
-    hisat2-build --exon ${extracted_exons} --ss ${extracted_ss} -p ${task.cpus} ${genome} ${genome}.index
+    hisat2-build --exon ${extracted_exons} --ss ${extracted_ss} -p ${task.cpus} ${genome} ${genome.simpleName}.index
     """
 }
 
@@ -114,7 +114,7 @@ process map_reads_to_reference {
 
     script:
     """
-    hisat2 --dta --phred33 -p ${task.cpus} -x ${genome}.index -U ${reads[0]},${reads[1]} -S ${state_replicate}.sam
+    hisat2 --dta --phred33 -p ${task.cpus} -x ${genome.simpleName}.index -U ${reads[0]},${reads[1]} -S ${state_replicate}.sam
     """
 }
 

@@ -99,6 +99,9 @@ BiocManager::install('SummarizedExperiment'); \
 BiocManager::install('GenomeInfoDb'); \
 BiocManager::install('DESeq2')"
 
+#copy the dgexp.R script to /opt/
+COPY dgexp.R /opt/
+
 #change working directory
 WORKDIR /opt/
 

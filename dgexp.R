@@ -1,9 +1,22 @@
+"dgexp.R
 
-setwd("C:/Users/noel.namai/personal/asimov/results/")
+Usage:
+  dgexp.R [--alpha=<alpha>] [--log2fc-threshold=<log2fc>] --results-dir=<dir>
+  dgexp.R (-h | --help)
+  dgexp.R --version
+
+Options:
+  -h --help           Show help and exit.
+  --version           Show version.
+  --alpha=<alpha>     [default: 0.01].
+  --log2fc-threshold  [default: 1.50].
+  --results-dir
+" -> doc
 
 ########################################################################################################
 
 library("DESeq2")
+library("docopt")
 
 ########################################################################################################
 
