@@ -1,5 +1,6 @@
 # Differential Gene Expression Analysis.
 
+```
 $ tree
 ├── data
 │   ├── ecoli_dh10b_annotation.fasta
@@ -27,3 +28,4 @@ $ tree
     ├── ma-plot.png
     ├── max-counts-plot.png
     └── min-counts-plot.png
+```
