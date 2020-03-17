@@ -5,7 +5,7 @@
 Run the workflow on a **Linux** based system with atleast **8 CPUs** and **30 GB of RAM**. This was run and tested on an **m4.2xlarge Amazon Instance**. 
 
 
-![Alt text](./data/workflow.png)
+![Alt text](./data/dgexp.png)
 
 
 1. Have atleast **Java 8** or later installed. Check if **Java** is installed using the following command:
