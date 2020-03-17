@@ -97,7 +97,8 @@ BiocManager::install('annotate'); \
 BiocManager::install('GenomicRanges'); \
 BiocManager::install('SummarizedExperiment'); \
 BiocManager::install('GenomeInfoDb'); \
-BiocManager::install('DESeq2')"
+BiocManager::install('DESeq2'); \
+BiocManager::install('BiocParallel')"
 
 #copy the dgexp.R script to /opt/
 COPY dgexp.R /opt/

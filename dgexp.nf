@@ -169,8 +169,6 @@ process generate_raw_counts {
     tag "$state_replicate"
     container "noelnamai/asimov:1.0"
 
-    publishDir "${params.outdir}", mode: "copy", overwrite: true
-
     input:
     file(gtf) from gtf_2_ch
     set state_replicate, file(bam_file) from aligned_sorted_bam_ch
@@ -184,9 +182,12 @@ process generate_raw_counts {
     """
 }
 
-process combine_matrix {
+/*
+ * detect differentially expressed genes using DESeq2
+ */
+process detect_dexp_genes {
 
-    cpus = 2
+    cpus = 8
     container "noelnamai/asimov:1.0"
 
     publishDir "${params.outdir}", mode: "copy", overwrite: true
@@ -195,12 +196,10 @@ process combine_matrix {
     file(count_matrices) from raw_counts_ch.collect()
 
     output:
-    file("count_matrix_final.tsv") into combined_matrix_ch
+    file("*.tsv") into combined_matrix_ch
 
     script:
     """
-    join state1_rep1.tsv state1_rep2.tsv | join - state2_rep1.tsv | join - state2_rep2.tsv > count_matrix.tsv
-    echo "gene_id state1_rep1 state1_rep2 state2_rep1 state2_rep2" > header.txt
-    cat header.txt count_matrix.tsv > count_matrix_final.tsv
+    Rscript /opt/dgexp.R --threads ${task.cpus} --results-dir . --alpha 0.1 --log2fc-threshold 1.5
     """
 }
