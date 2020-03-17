@@ -1,5 +1,5 @@
 #specifying the base image
-FROM ubuntu:16.04
+FROM ubuntu:19.04
 
 #add metadata to image e.g. name and email of the person who maintains the file
 LABEL Maintainer="Noel Namai"
@@ -12,14 +12,12 @@ ARG DEBIAN_FRONTEND=noninteractive
 #http://bugs.python.org/issue19846
 ENV LANG C.UTF-8
 
-RUN echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/" | tee -a /etc/apt/sources.list \
-    && gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9 \
-    && gpg -a --export E084DAB9 | apt-key add -
-
 #update ubuntu and install other necessary software
 RUN apt-get -y update \
     && apt-get install -y software-properties-common \
     && apt-get -y update \
+    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
+    && add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu disco-cran35/" \
     && add-apt-repository ppa:openjdk-r/ppa \
     && apt-get -y update --fix-missing \
     && apt-get install -y --allow-unauthenticated \
@@ -39,7 +37,10 @@ RUN apt-get -y update \
         openjdk-11-jdk \
         python3 \
         python3-dev \
-        python3-pip \
+        python3-numpy \
+        python3-matplotlib \
+        python3-pysam \
+        python3-htseq \
         samtools \
         littler \
         git \
@@ -74,13 +75,6 @@ RUN git clone https://github.com/gpertea/gclib /usr/local/bin/gclib \
 
 #add trimmomatic dir to path
 ENV PATH $PATH:/usr/local/bin/gffread/
-
-#install required python packages
-RUN pip3 install \
-        numpy \
-        matplotlib \
-        pysam \
-        HTSeq
 
 #install required R packages from CRAN
 RUN install.r \
