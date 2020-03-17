@@ -1,1 +1,4 @@
-data/
+data/*.fastq.gz
+data/ecoli_dh10b_ncbi.*
+data/*ecoli_dh10b_annotation.*
+data/plasmid.fasta
