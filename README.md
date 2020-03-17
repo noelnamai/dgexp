@@ -2,6 +2,8 @@
 
 [Nextflow](https://www.nextflow.io/docs/latest/getstarted.html) can be used on any *POSIX* compatible system (Linux, OS X, etc). It requires **Bash 3.2** (or later) and **Java 8** (or later, up to 11) to be installed.
 
+Run the workflow on a **Linux** based system with atleast **8 CPUs** and **30 GB of RAM**. This was run and tested on an **m4.2xlarge Amazon Instance**. 
+
 1. Have atleast **Java 8** or later installed. Check if **Java** is installed using the following command:
 
 ```
@@ -92,7 +94,6 @@ $ tree dgexp/
 ```
 $ nextflow run dgexp.nf
 
-ubuntu@ip-10-50-1-57:~/nnamai$ nextflow run dgexp.nf
 N E X T F L O W  ~  version 20.01.0
 Launching `dgexp.nf` [zen_faggin] - revision: b400c70a68
 
@@ -106,13 +107,30 @@ HTSeq      : 0.11.1
 DESeq2     : 1.26.0
 Start time : 2020-03-17T20:46:25.890092Z
 
-executor >  local (3)
+executor >  local (20)
 [9c/e5fe4d] process > convert_gff3_to_gtf    [100%] 1 of 1 ✔
 [73/31090f] process > extract_exons_and_ss   [100%] 1 of 1 ✔
-[2e/60e3fd] process > build_genome_index     [  0%] 0 of 1
-[-        ] process > map_reads_to_reference -
-[-        ] process > convert_sam_to_bam     -
-[-        ] process > sort_bam_file          -
-[-        ] process > generate_raw_counts    -
-[-        ] process > detect_dexp_genes      -
+[2e/60e3fd] process > build_genome_index     [100%] 1 of 1 ✔
+[cc/9b45eb] process > map_reads_to_reference [100%] 4 of 4 ✔
+[4c/5111fc] process > convert_sam_to_bam     [100%] 4 of 4 ✔
+[3b/633ff5] process > sort_bam_file          [100%] 4 of 4 ✔
+[69/959a52] process > generate_raw_counts    [100%] 4 of 4 ✔
+[90/3dca4e] process > detect_dexp_genes      [100%] 1 of 1 ✔
+
+Completed at: 17-Mar-2020 21:11:38
+Duration    : 25m 12s
+CPU hours   : 2.0
+Succeeded   : 20
 ```
+
+8. The following files are the final outputs from the *detect_dexp_genes* process which runs **DESeq2**:
+
+a) dexp-genes.tsv
+
+b) genes-results.tsv
+
+c) ma-plot.png
+
+d) max-counts-plot.png
+
+e) min-counts-plot.png
