@@ -1,12 +1,14 @@
 # Differential Gene Expression Analysis.
 
+![Alt text](./data/dgexp.png)
+
+The final workflow, implemented using [Nextflow](https://www.nextflow.io/), can be found here: [dgexp.nf](https://github.com/noelnamai/dgexp/blob/master/dgexp.nf). The accompanying configuration file is available here: [nexflow.config](https://github.com/noelnamai/dgexp/blob/master/nextflow.config) with the Dockerfile used to generate the Docker container used in the workflow is available here: [Dockerfile](https://github.com/noelnamai/dgexp/blob/master/docker/Dockerfile).
+
+Most of the tools used are standard of the shelf tools. However, DESeq2 has been wrapped into an Rscript available here: [dgexp.R](https://github.com/noelnamai/dgexp/blob/master/docker/dgexp.R).
+
 [Nextflow](https://www.nextflow.io/docs/latest/getstarted.html) can be used on any *POSIX* compatible system (Linux, OS X, etc). It requires **Bash 3.2** (or later) and **Java 8** (or later, up to 11) to be installed.
 
 Run the workflow on a **Linux** based system with atleast **8 CPUs** and **30 GB of RAM**. This was run and tested on an **m4.2xlarge Amazon Instance**. 
-
-
-![Alt text](./data/dgexp.png)
-
 
 1. Have atleast **Java 8** or later installed. Check if **Java** is installed using the following command:
 
