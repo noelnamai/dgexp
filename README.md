@@ -1,10 +1,12 @@
 # Differential Gene Expression Analysis.
 
-![Alt text](data/workflow.png)
-
 [Nextflow](https://www.nextflow.io/docs/latest/getstarted.html) can be used on any *POSIX* compatible system (Linux, OS X, etc). It requires **Bash 3.2** (or later) and **Java 8** (or later, up to 11) to be installed.
 
 Run the workflow on a **Linux** based system with atleast **8 CPUs** and **30 GB of RAM**. This was run and tested on an **m4.2xlarge Amazon Instance**. 
+
+
+![Alt text](./data/workflow.png)
+
 
 1. Have atleast **Java 8** or later installed. Check if **Java** is installed using the following command:
 
