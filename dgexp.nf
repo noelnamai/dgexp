@@ -196,7 +196,7 @@ process detect_dexp_genes {
     file(count_matrices) from raw_counts_ch.collect()
 
     output:
-    file("*.tsv") into combined_matrix_ch
+    set file("*.png"), file("*.tsv") into dgexp_png_tsv_ch
 
     script:
     """
