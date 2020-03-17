@@ -44,6 +44,19 @@ $ nextflow -version
       http://nextflow.io
 ```
 
+4. Install **Docker**. A good walk through is available here: [How To Install and Use Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04).
+
+```
+$ docker --version
+Docker version 18.09.6, build 481bc77
+```
+
+5. Clone the github repository to your environment:
+
+```
+$git clone
+```
+
 ```
 $ tree
 ├── data
