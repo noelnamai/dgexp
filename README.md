@@ -54,17 +54,17 @@ Docker version 18.09.6, build 481bc77
 5. Clone the github repository to your environment:
 
 ```
-$git clone
+$ git clone https://github.com/noelnamai/dgexp.git
 ```
 
+6. Set up the *data* directory to have the structure shown below. Both the **ecoli_dh10b_ensembl.fasta** and **ecoli_dh10b_ensembl.gff3** were downloaded from [Ensembl](http://bacteria.ensembl.org/Escherichia_coli_str_k_12_substr_dh10b/Info/Index). The provide **fasta** and **gff3** were not yielding any expression results for all the samples.
+
 ```
-$ tree
+$ tree dgexp/
+
 ├── data
-│   ├── ecoli_dh10b_annotation.fasta
-│   ├── ecoli_dh10b_annotation.gff3
 │   ├── ecoli_dh10b_ensembl.fasta
 │   ├── ecoli_dh10b_ensembl.gff3
-│   ├── ecoli_dh10b_ncbi.fasta
 │   ├── ecoli_state1_rep1.fastq.gz
 │   ├── ecoli_state1_rep1_2.fastq.gz
 │   ├── ecoli_state1_rep2.fastq.gz
@@ -85,4 +85,34 @@ $ tree
     ├── ma-plot.png
     ├── max-counts-plot.png
     └── min-counts-plot.png
+```
+
+7. To run the workflow, use the following command from the **dgexp** directory:
+
+```
+$ nextflow run dgexp.nf
+
+ubuntu@ip-10-50-1-57:~/nnamai$ nextflow run dgexp.nf
+N E X T F L O W  ~  version 20.01.0
+Launching `dgexp.nf` [zen_faggin] - revision: b400c70a68
+
+D I F F E R E N T I A L  G E N E  E X P R E S I O N  A N A L Y S I S
+====================================================================
+
+Samtools   : 1.9
+Gffread    : 0.11.8
+HISAT2     : 2.1.0
+HTSeq      : 0.11.1
+DESeq2     : 1.26.0
+Start time : 2020-03-17T20:46:25.890092Z
+
+executor >  local (3)
+[9c/e5fe4d] process > convert_gff3_to_gtf    [100%] 1 of 1 ✔
+[73/31090f] process > extract_exons_and_ss   [100%] 1 of 1 ✔
+[2e/60e3fd] process > build_genome_index     [  0%] 0 of 1
+[-        ] process > map_reads_to_reference -
+[-        ] process > convert_sam_to_bam     -
+[-        ] process > sort_bam_file          -
+[-        ] process > generate_raw_counts    -
+[-        ] process > detect_dexp_genes      -
 ```
