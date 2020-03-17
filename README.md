@@ -1,6 +1,6 @@
 # Differential Gene Expression Analysis.
 
-![Alt text](./data/dgexp.png)
+![Alt text](./data/dgexp2.png)
 
 The final workflow, implemented using [Nextflow](https://www.nextflow.io/), can be found here: [dgexp.nf](https://github.com/noelnamai/dgexp/blob/master/dgexp.nf). The accompanying configuration file is available here: [nexflow.config](https://github.com/noelnamai/dgexp/blob/master/nextflow.config) with the Dockerfile used to generate the Docker container used in the workflow is available here: [Dockerfile](https://github.com/noelnamai/dgexp/blob/master/docker/Dockerfile).
 
