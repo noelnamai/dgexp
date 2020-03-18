@@ -122,12 +122,14 @@ Launching `dgexp.nf` [spontaneous_kilby] - revision: 8693a87a25
 D I F F E R E N T I A L  G E N E  E X P R E S I O N  A N A L Y S I S
 ====================================================================
 
-Samtools   : 1.9
-Gffread    : 0.11.8
-HISAT2     : 2.1.0
-HTSeq      : 0.11.1
-DESeq2     : 1.26.0
-Start time : 2020-03-18T15:17:01.419777Z
+Trimmomatic : 0.39
+FastQC      : 0.11.5
+Samtools    : 1.9
+Gffread     : 0.11.8
+HISAT2      : 2.1.0
+HTSeq       : 0.11.1
+DESeq2      : 1.26.0
+Start time  : 2020-03-18T15:17:01.419777Z
 
 executor >  local (27)
 [78/3e84e0] process > trim_reads             [100%] 4 of 4 ✔
