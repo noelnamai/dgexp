@@ -7,12 +7,14 @@ println """\
 D I F F E R E N T I A L  G E N E  E X P R E S I O N  A N A L Y S I S
 ====================================================================
 
-Samtools   : 1.9
-Gffread    : 0.11.8
-HISAT2     : 2.1.0
-HTSeq      : 0.11.1
-DESeq2     : 1.26.0
-Start time : $workflow.start
+Trimmomatic : 0.39
+FastQC      :
+Samtools    : 1.9
+Gffread     : 0.11.8
+HISAT2      : 2.1.0
+HTSeq       : 0.11.1
+DESeq2      : 1.26.0
+Start time  : $workflow.start
 """
 .stripIndent()
 

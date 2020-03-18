@@ -1,4 +1,4 @@
-# Differential Gene Expression Analysis.
+# Differential Gene Expression Analysis
 
 The final workflow, implemented using [Nextflow](https://www.nextflow.io/), can be found here: [dgexp.nf](https://github.com/noelnamai/dgexp/blob/master/dgexp.nf). The accompanying configuration file is available here: [nexflow.config](https://github.com/noelnamai/dgexp/blob/master/nextflow.config). 
 
@@ -14,7 +14,7 @@ The **Dockerfile** used to generate the Docker container used in the workflow is
 
 Most of the tools used are standard off the shelf tools. However, **DESeq2** has been wrapped into an Rscript available here: [dgexp.R](https://github.com/noelnamai/dgexp/blob/master/docker/dgexp.R).
 
-[Nextflow](https://www.nextflow.io/docs/latest/getstarted.html) can be used on any *POSIX* compatible system (Linux, OS X, etc). It requires **Bash 3.2** (or later) and **Java 8** (or later, up to 11) to be installed. It is important to run the workflow on a **Linux** based system with atleast **8 CPUs** and **30 GB of RAM**. This workflow was run and tested on an **m4.2xlarge Amazon Instance**. 
+[Nextflow](https://www.nextflow.io/docs/latest/getstarted.html) can be used on any *POSIX* compatible system (Linux, OS X, etc). It requires **Bash 3.2** (or later) and **Java 8** (or later, up to 11) to be installed. It is important to run the workflow on a **Linux** based system with atleast **8 CPUs** and **30 GB of RAM**. This workflow was run and tested on an **m4.2xlarge Amazon Linux Instance**. 
 
 ## Work environment requirements
 
@@ -109,7 +109,7 @@ $ tree dgexp/
 $ nextflow run dgexp.nf
 
 N E X T F L O W  ~  version 20.01.0
-Launching `dgexp.nf` [zen_faggin] - revision: b400c70a68
+Launching `dgexp.nf` [spontaneous_kilby] - revision: 8693a87a25
 
 D I F F E R E N T I A L  G E N E  E X P R E S I O N  A N A L Y S I S
 ====================================================================
@@ -119,22 +119,24 @@ Gffread    : 0.11.8
 HISAT2     : 2.1.0
 HTSeq      : 0.11.1
 DESeq2     : 1.26.0
-Start time : 2020-03-17T20:46:25.890092Z
+Start time : 2020-03-18T15:17:01.419777Z
 
-executor >  local (20)
-[9c/e5fe4d] process > convert_gff3_to_gtf    [100%] 1 of 1 ✔
-[73/31090f] process > extract_exons_and_ss   [100%] 1 of 1 ✔
-[2e/60e3fd] process > build_genome_index     [100%] 1 of 1 ✔
-[cc/9b45eb] process > map_reads_to_reference [100%] 4 of 4 ✔
-[4c/5111fc] process > convert_sam_to_bam     [100%] 4 of 4 ✔
-[3b/633ff5] process > sort_bam_file          [100%] 4 of 4 ✔
+executor >  local (27)
+[78/3e84e0] process > trim_reads             [100%] 4 of 4 ✔
+[a7/89afb7] process > check_read_quality     [100%] 4 of 4 ✔
+[68/53cdf5] process > convert_gff3_to_gtf    [100%] 1 of 1 ✔
+[7b/0ad38b] process > extract_exons_and_ss   [100%] 1 of 1 ✔
+[fb/fef2c1] process > build_genome_index     [100%] 1 of 1 ✔
+[88/366215] process > map_reads_to_reference [100%] 4 of 4 ✔
+[7f/cc3670] process > convert_sam_to_bam     [100%] 4 of 4 ✔
+[65/d29197] process > sort_bam_file          [100%] 4 of 4 ✔
 [69/959a52] process > generate_raw_counts    [100%] 4 of 4 ✔
 [90/3dca4e] process > detect_dexp_genes      [100%] 1 of 1 ✔
 
-Completed at: 17-Mar-2020 21:11:38
-Duration    : 25m 12s
-CPU hours   : 2.0
-Succeeded   : 20
+Completed at: 18-Mar-2020 15:46:30
+Duration    : 29m 29s
+CPU hours   : 2.5
+Succeeded   : 28
 ```
 
 ## Results
