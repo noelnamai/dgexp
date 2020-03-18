@@ -141,7 +141,7 @@ Succeeded   : 20
 
 The following files are the final outputs from the *detect_dexp_genes* process which runs **DESeq2**:
 
-1. **dexp-genes.tsv**: the table with the differentially expresed genes. The full table is available here [dexp-genes.tsv](https://github.com/noelnamai/dgexp/blob/master/results/dexp-genes.tsv).
+1. **dexp-genes.tsv**: the table with the differentially expresed genes with *padj < 0.1* and *log2FoldChange > log2(1.5)*. The full table is available here [dexp-genes.tsv](https://github.com/noelnamai/dgexp/blob/master/results/dexp-genes.tsv).
 
 |genes        |   baseMean| log2FoldChange|     lfcSE|     stat|    pvalue|      padj|
 |:------------|----------:|--------------:|---------:|--------:|---------:|---------:|
@@ -152,7 +152,7 @@ The following files are the final outputs from the *detect_dexp_genes* process w
 |ECDH10B_0789 |  765.20941|       2.649082| 0.4304883| 4.794833| 0.0000016| 0.0000919|
 |ECDH10B_0790 | 4079.52529|       1.885047| 0.3563550| 3.648286| 0.0002640| 0.0089146|
 
-2. **genes-results.tsv**: contains the expresion of all the genes. The full table is available here [genes-results.tsv](https://github.com/noelnamai/dgexp/blob/master/results/genes-results.tsv).
+2. **genes-results.tsv**: a result table from a **DESeq** analysis giving *base means* across samples, *log2 fold changes*, *standard errors*, *test statistics*, *p-values* and *adjusted p-values*. The full table is available here [genes-results.tsv](https://github.com/noelnamai/dgexp/blob/master/results/genes-results.tsv).
 
 |genes          | baseMean| log2FoldChange|    lfcSE|       stat|    pvalue| padj|
 |:--------------|--------:|--------------:|--------:|----------:|---------:|----:|
@@ -163,15 +163,15 @@ The following files are the final outputs from the *detect_dexp_genes* process w
 |EBG00001089508 | 22.26069|      1.1132234| 1.496692|  0.3529524| 0.7241241|    1|
 |EBG00001089509 | 35.45083|     -0.3843498| 1.404188|  0.0000000| 1.0000000|    1|
 
-3. [ma-plot.png](https://github.com/noelnamai/dgexp/blob/master/results/ma-plot.png)
+3. **[ma-plot.png](https://github.com/noelnamai/dgexp/blob/master/results/ma-plot.png)**: the MA-plot from base means and log fold changes
 
 ![Alt text](./results/ma-plot.png)
 
-4. [max-counts-plot.png](https://github.com/noelnamai/dgexp/blob/master/results/max-counts-plot.png)
+4. **[max-counts-plot.png](https://github.com/noelnamai/dgexp/blob/master/results/max-counts-plot.png)**: plot of normalized counts for a single gene with the maximum *padj*.
 
 ![Alt text](./results/max-counts-plot.png)
 
-5. [min-counts-plot.png](https://github.com/noelnamai/dgexp/blob/master/results/min-counts-plot.png)
+5. **[min-counts-plot.png](https://github.com/noelnamai/dgexp/blob/master/results/min-counts-plot.png)**: plot of normalized counts for a single gene with the minimum *padj*.
 
 ![Alt text](./results/min-counts-plot.png)
 
