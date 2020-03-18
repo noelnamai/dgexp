@@ -129,8 +129,17 @@ Succeeded   : 20
 
 8. The following files are the final outputs from the *detect_dexp_genes* process which runs **DESeq2**:
 
-- dexp-genes.tsv
-- genes-results.tsv
-- ma-plot.png
-- max-counts-plot.png
-- min-counts-plot.png
+- [dexp-genes.tsv](https://github.com/noelnamai/dgexp/blob/master/results/dexp-genes.tsv)
+- [genes-results.tsv](https://github.com/noelnamai/dgexp/blob/master/results/genes-results.tsv)
+- [ma-plot.png](https://github.com/noelnamai/dgexp/blob/master/results/ma-plot.png)
+
+![Alt text](./results/ma-plot.png)
+
+- [max-counts-plot.png](https://github.com/noelnamai/dgexp/blob/master/results/max-counts-plot.png)
+
+![Alt text](./results/max-counts-plot.png)
+
+- [min-counts-plot.png](https://github.com/noelnamai/dgexp/blob/master/results/min-counts-plot.png)
+
+![Alt text](./results/man-counts-plot.png)
+
