@@ -141,5 +141,5 @@ Succeeded   : 20
 
 - [min-counts-plot.png](https://github.com/noelnamai/dgexp/blob/master/results/min-counts-plot.png)
 
-![Alt text](./results/man-counts-plot.png)
+![Alt text](./results/mai-counts-plot.png)
 
