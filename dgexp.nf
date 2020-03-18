@@ -33,6 +33,45 @@ Channel.fromPath(params.reads)
     .set{read_pairs_ch}
 
 /*
+ * trim the fastq reads using trimmomatic
+ */
+process trim_reads {
+
+    cpus = 2
+    tag "$state_replicate" 
+    container "noelnamai/asimov:1.0"
+
+    input:
+    set state_replicate, file(reads) from read_pairs_ch
+
+    output:
+    set state_replicate, file("${reads[0].simpleName}.trimmed.fastq.gz"), file("${reads[1].simpleName}.trimmed.fastq.gz") into trimmed_read_pairs_ch
+
+    script:
+    """
+    java -jar /usr/local/bin/Trimmomatic-0.39/trimmomatic-0.39.jar SE \
+        -phred33 \
+        -threads ${task.cpus} \
+        ${reads[0]} ${reads[0].simpleName}.trimmed.fastq.gz \
+        ILLUMINACLIP:TruSeq3-SE:2:30:10 \
+        LEADING:3 \
+        TRAILING:3 \
+        SLIDINGWINDOW:4:15 \
+        MINLEN:36
+
+    java -jar /usr/local/bin/Trimmomatic-0.39/trimmomatic-0.39.jar SE \
+        -phred33 \
+        -threads ${task.cpus} \
+        ${reads[1]} ${reads[1].simpleName}.trimmed.fastq.gz \
+        ILLUMINACLIP:TruSeq3-SE:2:30:10 \
+        LEADING:3 \
+        TRAILING:3 \
+        SLIDINGWINDOW:4:15 \
+        MINLEN:36
+    """
+}
+
+/*
  * convert the annotated gff3 to gtf using gffread
  */
  process convert_gff3_to_gtf {
@@ -107,14 +146,14 @@ process map_reads_to_reference {
     input:
     file genome
     file index from genome_index_ch
-    set state_replicate, file(reads) from read_pairs_ch
+    set state_replicate, file(read_1), file(read_2) from trimmed_read_pairs_ch
 
     output:
     set state_replicate, file("${state_replicate}.sam") into aligned_sam_ch
 
     script:
     """
-    hisat2 --dta --phred33 -p ${task.cpus} -x ${genome.simpleName}.index -U ${reads[0]},${reads[1]} -S ${state_replicate}.sam
+    hisat2 --dta --phred33 -p ${task.cpus} -x ${genome.simpleName}.index -U ${read_1},${read_2} -S ${state_replicate}.sam
     """
 }
 
