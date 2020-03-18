@@ -96,6 +96,14 @@ $ tree dgexp/
 │   └── dgexp.R
 ├── nextflow.config
 └── results
+    ├── ecoli_state1_rep1.trimmed_fastqc.html
+    ├── ecoli_state1_rep1_2.trimmed_fastqc.html
+    ├── ecoli_state1_rep2.trimmed_fastqc.html
+    ├── ecoli_state1_rep2_2.trimmed_fastqc.html
+    ├── ecoli_state2_rep1.trimmed_fastqc.html
+    ├── ecoli_state2_rep1_2.trimmed_fastqc.html
+    ├── ecoli_state2_rep2.trimmed_fastqc.html
+    ├── ecoli_state2_rep2_2.trimmed_fastqc.html
     ├── dexp-genes.tsv
     ├── genes-results.tsv
     ├── ma-plot.png
