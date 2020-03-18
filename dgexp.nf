@@ -64,6 +64,9 @@ process trim_reads {
     """
 }
 
+/*
+ * check fastq read quality using fastqc
+ */
 process check_read_quality {
 
     cpus = 2
@@ -80,8 +83,7 @@ process check_read_quality {
 
     script:
     """
-    fastqc ${read_1} --outdir . --threads ${task.cpus}
-    fastqc ${read_2} --outdir . --threads ${task.cpus}
+    fastqc --outdir . --threads ${task.cpus} ${read_1} ${read_2}
     """
 }
 
