@@ -133,8 +133,28 @@ Succeeded   : 20
 
 8. The following files are the final outputs from the *detect_dexp_genes* process which runs **DESeq2**:
 
-- [dexp-genes.tsv](https://github.com/noelnamai/dgexp/blob/master/results/dexp-genes.tsv)
-- [genes-results.tsv](https://github.com/noelnamai/dgexp/blob/master/results/genes-results.tsv)
+- **dexp-genes.tsv**: the table with the differentially expresed genes. The full table is available here [dexp-genes.tsv](https://github.com/noelnamai/dgexp/blob/master/results/dexp-genes.tsv).
+
+|genes        |   baseMean| log2FoldChange|     lfcSE|     stat|    pvalue|      padj|
+|:------------|----------:|--------------:|---------:|--------:|---------:|---------:|
+|ECDH10B_0130 | 1220.43800|       2.525123| 0.4439391| 4.370330| 0.0000124| 0.0005456|
+|ECDH10B_0664 |   69.08905|       5.171019| 1.1160349| 4.109241| 0.0000397| 0.0015977|
+|ECDH10B_0739 | 1916.88143|       1.734633| 0.4012711| 2.865072| 0.0041691| 0.0931691|
+|ECDH10B_0788 | 1268.35915|       2.081515| 0.4589754| 3.260639| 0.0011116| 0.0320926|
+|ECDH10B_0789 |  765.20941|       2.649082| 0.4304883| 4.794833| 0.0000016| 0.0000919|
+|ECDH10B_0790 | 4079.52529|       1.885047| 0.3563550| 3.648286| 0.0002640| 0.0089146|
+
+- **genes-results.tsv**: contains the expresion of all the genes. The full table is available here [genes-results.tsv](https://github.com/noelnamai/dgexp/blob/master/results/genes-results.tsv).
+
+|genes          | baseMean| log2FoldChange|    lfcSE|       stat|    pvalue| padj|
+|:--------------|--------:|--------------:|--------:|----------:|---------:|----:|
+|EBG00001089504 | 30.12564|     -1.0299979| 1.563530| -0.2846351| 0.7759237|    1|
+|EBG00001089505 |  0.00000|             NA|       NA|         NA|        NA|   NA|
+|EBG00001089506 |  0.00000|             NA|       NA|         NA|        NA|   NA|
+|EBG00001089507 |  0.00000|             NA|       NA|         NA|        NA|   NA|
+|EBG00001089508 | 22.26069|      1.1132234| 1.496692|  0.3529524| 0.7241241|    1|
+|EBG00001089509 | 35.45083|     -0.3843498| 1.404188|  0.0000000| 1.0000000|    1|
+
 - [ma-plot.png](https://github.com/noelnamai/dgexp/blob/master/results/ma-plot.png)
 
 ![Alt text](./results/ma-plot.png)
