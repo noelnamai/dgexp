@@ -16,7 +16,7 @@ Most of the tools used are standard off the shelf tools. However, **DESeq2** has
 
 [Nextflow](https://www.nextflow.io/docs/latest/getstarted.html) can be used on any *POSIX* compatible system (Linux, OS X, etc). It requires **Bash 3.2** (or later) and **Java 8** (or later, up to 11) to be installed. It is important to run the workflow on a **Linux** based system with atleast **8 CPUs** and **30 GB of RAM**. This workflow was run and tested on an **m4.2xlarge Amazon Instance**. 
 
-## Work environment requiremnets
+## Work environment requirements
 
 1. Have atleast **Java 8** or later installed. Check if **Java** is installed using the following command:
 
@@ -141,7 +141,7 @@ Succeeded   : 20
 
 The following files are the final outputs from the *detect_dexp_genes* process which runs **DESeq2**:
 
-- **dexp-genes.tsv**: the table with the differentially expresed genes. The full table is available here [dexp-genes.tsv](https://github.com/noelnamai/dgexp/blob/master/results/dexp-genes.tsv).
+1. **dexp-genes.tsv**: the table with the differentially expresed genes. The full table is available here [dexp-genes.tsv](https://github.com/noelnamai/dgexp/blob/master/results/dexp-genes.tsv).
 
 |genes        |   baseMean| log2FoldChange|     lfcSE|     stat|    pvalue|      padj|
 |:------------|----------:|--------------:|---------:|--------:|---------:|---------:|
@@ -152,7 +152,7 @@ The following files are the final outputs from the *detect_dexp_genes* process w
 |ECDH10B_0789 |  765.20941|       2.649082| 0.4304883| 4.794833| 0.0000016| 0.0000919|
 |ECDH10B_0790 | 4079.52529|       1.885047| 0.3563550| 3.648286| 0.0002640| 0.0089146|
 
-- **genes-results.tsv**: contains the expresion of all the genes. The full table is available here [genes-results.tsv](https://github.com/noelnamai/dgexp/blob/master/results/genes-results.tsv).
+2. **genes-results.tsv**: contains the expresion of all the genes. The full table is available here [genes-results.tsv](https://github.com/noelnamai/dgexp/blob/master/results/genes-results.tsv).
 
 |genes          | baseMean| log2FoldChange|    lfcSE|       stat|    pvalue| padj|
 |:--------------|--------:|--------------:|--------:|----------:|---------:|----:|
@@ -163,15 +163,15 @@ The following files are the final outputs from the *detect_dexp_genes* process w
 |EBG00001089508 | 22.26069|      1.1132234| 1.496692|  0.3529524| 0.7241241|    1|
 |EBG00001089509 | 35.45083|     -0.3843498| 1.404188|  0.0000000| 1.0000000|    1|
 
-- [ma-plot.png](https://github.com/noelnamai/dgexp/blob/master/results/ma-plot.png)
+3. [ma-plot.png](https://github.com/noelnamai/dgexp/blob/master/results/ma-plot.png)
 
 ![Alt text](./results/ma-plot.png)
 
-- [max-counts-plot.png](https://github.com/noelnamai/dgexp/blob/master/results/max-counts-plot.png)
+4. [max-counts-plot.png](https://github.com/noelnamai/dgexp/blob/master/results/max-counts-plot.png)
 
 ![Alt text](./results/max-counts-plot.png)
 
-- [min-counts-plot.png](https://github.com/noelnamai/dgexp/blob/master/results/min-counts-plot.png)
+5. [min-counts-plot.png](https://github.com/noelnamai/dgexp/blob/master/results/min-counts-plot.png)
 
 ![Alt text](./results/min-counts-plot.png)
 
