@@ -8,7 +8,7 @@ D I F F E R E N T I A L  G E N E  E X P R E S I O N  A N A L Y S I S
 ====================================================================
 
 Trimmomatic : 0.39
-FastQC      :
+FastQC      : 0.11.5
 Samtools    : 1.9
 Gffread     : 0.11.8
 HISAT2      : 2.1.0
