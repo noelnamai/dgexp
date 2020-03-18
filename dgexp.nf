@@ -45,7 +45,8 @@ process trim_reads {
     set state_replicate, file(reads) from read_pairs_ch
 
     output:
-    set state_replicate, file("${reads[0].simpleName}.trimmed.fastq.gz"), file("${reads[1].simpleName}.trimmed.fastq.gz") into trimmed_read_pairs_ch
+    set state_replicate, file("${reads[0].simpleName}.trimmed.fastq.gz"), file("${reads[1].simpleName}.trimmed.fastq.gz") into trimmed_read_pairs_1_ch
+    set state_replicate, file("${reads[0].simpleName}.trimmed.fastq.gz"), file("${reads[1].simpleName}.trimmed.fastq.gz") into trimmed_read_pairs_2_ch
 
     script:
     """
@@ -53,21 +54,34 @@ process trim_reads {
         -phred33 \
         -threads ${task.cpus} \
         ${reads[0]} ${reads[0].simpleName}.trimmed.fastq.gz \
-        ILLUMINACLIP:TruSeq3-SE:2:30:10 \
-        LEADING:3 \
-        TRAILING:3 \
-        SLIDINGWINDOW:4:15 \
-        MINLEN:36
+        ILLUMINACLIP:TruSeq3-SE:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 
     java -jar /usr/local/bin/Trimmomatic-0.39/trimmomatic-0.39.jar SE \
         -phred33 \
         -threads ${task.cpus} \
         ${reads[1]} ${reads[1].simpleName}.trimmed.fastq.gz \
-        ILLUMINACLIP:TruSeq3-SE:2:30:10 \
-        LEADING:3 \
-        TRAILING:3 \
-        SLIDINGWINDOW:4:15 \
-        MINLEN:36
+        ILLUMINACLIP:TruSeq3-SE:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+    """
+}
+
+process check_read_quality {
+
+    cpus = 2
+    tag "$state_replicate" 
+    container "noelnamai/asimov:1.0"
+
+    publishDir "${params.outdir}", mode: "copy", overwrite: true
+
+    input:
+    set state_replicate, file(read_1), file(read_2) from trimmed_read_pairs_1_ch
+
+    output:
+    file("*.html") into fastqc_ch
+
+    script:
+    """
+    fastqc ${read_1} --outdir . --threads ${task.cpus}
+    fastqc ${read_2} --outdir . --threads ${task.cpus}
     """
 }
 
@@ -146,7 +160,7 @@ process map_reads_to_reference {
     input:
     file genome
     file index from genome_index_ch
-    set state_replicate, file(read_1), file(read_2) from trimmed_read_pairs_ch
+    set state_replicate, file(read_1), file(read_2) from trimmed_read_pairs_2_ch
 
     output:
     set state_replicate, file("${state_replicate}.sam") into aligned_sam_ch

@@ -42,6 +42,7 @@ RUN apt-get -y update \
         python3-pysam \
         python3-htseq \
         samtools \
+        fastqc \
         littler \
         git \
         curl \
