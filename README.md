@@ -1,8 +1,14 @@
 # Differential Gene Expression Analysis.
 
+The final workflow, implemented using [Nextflow](https://www.nextflow.io/), can be found here: [dgexp.nf](https://github.com/noelnamai/dgexp/blob/master/dgexp.nf). The accompanying configuration file is available here: [nexflow.config](https://github.com/noelnamai/dgexp/blob/master/nextflow.config). 
+
+The final table with differentially expressed genes is available here: [dexp-genes.tsv](https://github.com/noelnamai/dgexp/blob/master/results/dexp-genes.tsv). I used an *adjusted p value cutoff* of 0.1 and a *log2 foldchange* threshold for constructing **Wald tests of significance** of 1.5.
+
+## Flow diagram
+
 ![Alt text](./data/dgexp.png)
 
-The final workflow, implemented using [Nextflow](https://www.nextflow.io/), can be found here: [dgexp.nf](https://github.com/noelnamai/dgexp/blob/master/dgexp.nf). The accompanying configuration file is available here: [nexflow.config](https://github.com/noelnamai/dgexp/blob/master/nextflow.config). 
+## Software requirements
 
 The **Dockerfile** used to generate the Docker container used in the workflow is available here: [Dockerfile](https://github.com/noelnamai/dgexp/blob/master/docker/Dockerfile).
 
@@ -10,7 +16,7 @@ Most of the tools used are standard off the shelf tools. However, **DESeq2** has
 
 [Nextflow](https://www.nextflow.io/docs/latest/getstarted.html) can be used on any *POSIX* compatible system (Linux, OS X, etc). It requires **Bash 3.2** (or later) and **Java 8** (or later, up to 11) to be installed. It is important to run the workflow on a **Linux** based system with atleast **8 CPUs** and **30 GB of RAM**. This workflow was run and tested on an **m4.2xlarge Amazon Instance**. 
 
-The final table with differentially expressed genes is available here: [dexp-genes.tsv](https://github.com/noelnamai/dgexp/blob/master/results/dexp-genes.tsv). I used an *adjusted p value cutoff* of 0.1 and a *log2 foldchange* threshold for constructing **Wald tests of significance** of 1.5.
+## Work environment requiremnets
 
 1. Have atleast **Java 8** or later installed. Check if **Java** is installed using the following command:
 
@@ -131,7 +137,9 @@ CPU hours   : 2.0
 Succeeded   : 20
 ```
 
-8. The following files are the final outputs from the *detect_dexp_genes* process which runs **DESeq2**:
+## Results
+
+The following files are the final outputs from the *detect_dexp_genes* process which runs **DESeq2**:
 
 - **dexp-genes.tsv**: the table with the differentially expresed genes. The full table is available here [dexp-genes.tsv](https://github.com/noelnamai/dgexp/blob/master/results/dexp-genes.tsv).
 
