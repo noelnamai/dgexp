@@ -15,6 +15,7 @@ Options:
 
 ########################################################################################################
 
+suppressMessages(suppressWarnings(library("tibble")))
 suppressMessages(suppressWarnings(library("DESeq2")))
 suppressMessages(suppressWarnings(library("docopt")))
 suppressMessages(suppressWarnings(library("BiocParallel")))
@@ -46,22 +47,25 @@ dds = DESeq(object = ddshtseq, parallel = TRUE)
 res = results(dds, lfcThreshold = log2(log2fc), alpha = alpha)
 dexp.genes = as.data.frame(res[!is.na(res$padj) &
                                  res$padj < alpha &
-                                 res$log2FoldChange > log2(log2fc), ])
+                                 res$log2FoldChange > log2(log2fc),])
 
 ########################################################################################################
 
+dexp.genes    = rownames_to_column(dexp.genes, var = "genes")
+genes.results = rownames_to_column(as.data.frame(res), var = "genes")
+
 write.table(
-  x = as.data.frame(res),
-  file = "genes-results.tsv",
+  x = genes.results,
   sep = "\t",
-  quote = FALSE
+  row.names = FALSE,
+  file = "genes-results.tsv"
 )
 
 write.table(
   x = dexp.genes,
-  file = "dexp-genes.tsv",
   sep = "\t",
-  quote = FALSE
+  row.names = FALSE,
+  file = "dexp-genes.tsv"
 )
 
 ########################################################################################################
