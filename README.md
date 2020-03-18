@@ -163,7 +163,7 @@ The following files are the final outputs from the *detect_dexp_genes* process w
 |EBG00001089508 | 22.26069|      1.1132234| 1.496692|  0.3529524| 0.7241241|    1|
 |EBG00001089509 | 35.45083|     -0.3843498| 1.404188|  0.0000000| 1.0000000|    1|
 
-3. **[ma-plot.png](https://github.com/noelnamai/dgexp/blob/master/results/ma-plot.png)**: the MA-plot from base means and log fold changes
+3. **[ma-plot.png](https://github.com/noelnamai/dgexp/blob/master/results/ma-plot.png)**: the MA-plot from base means and log fold changes.
 
 ![Alt text](./results/ma-plot.png)
 
