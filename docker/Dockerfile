@@ -65,6 +65,11 @@ RUN git clone https://github.com/gpertea/gclib /usr/local/bin/gclib \
     && cd /usr/local/bin/gffread/ \
     && make release
 
+#install trimmomatic
+RUN curl http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.39.zip -o trimmomatic-0.39.zip \
+    && unzip trimmomatic-0.39.zip -d /usr/local/bin/ \
+    && rm trimmomatic-0.39.zip
+
 #add trimmomatic dir to path
 ENV PATH $PATH:/usr/local/bin/gffread/
 
