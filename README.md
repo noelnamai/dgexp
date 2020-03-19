@@ -193,7 +193,7 @@ The following files are the final outputs from the *detect_dexp_genes* process w
    
 2. Bolger, A.M., Lohse, M. and Usadel, B. 2014. *Trimmomatic: a flexible trimmer for Illumina sequence data*. Bioinformatics 30(15), pp. 2114–2120.
 
-3. Kim, D., Langmead, B. and Salzberg, S.L. 2015. *HISAT: a fast spliced aligner with low memory requirements. Nature Methods 12(4), pp. 357–360.
+3. Kim, D., Langmead, B. and Salzberg, S.L. 2015. *HISAT: a fast spliced aligner with low memory requirements*. Nature Methods 12(4), pp. 357–360.
 
 4. Li, H., Handsaker, B., Wysoker, A., et al. 2009. *The Sequence Alignment/Map format and SAMtools*. Bioinformatics 25(16), pp. 2078–2079.
 
